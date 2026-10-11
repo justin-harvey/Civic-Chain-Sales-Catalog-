@@ -75,6 +75,7 @@ const SEGMENTS = [
     id: 'municipal', name: 'Municipalities', sub: 'Towns & cities',
     problem: 'Residents and council want to see where the money goes, and you need to prove every figure without paying for a six-figure open-data portal.',
     startsAt: '$1,800 / yr',
+    sizing: 'Sized by population: under 10k · 10k–100k · over 100k',
     fits: [
       { id: 'transparency', fit: 'Resident and council portal, plain-English answers anyone can verify, unlimited users.', price: '$1,800–$30,000 / yr by population' },
       { id: 'vendor', fit: 'Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.', price: '$18,000–$120,000 / yr by spend' },
@@ -86,7 +87,8 @@ const SEGMENTS = [
   {
     id: 'schools', name: 'School Districts', sub: 'K-12 & districts',
     problem: 'Parents and taxpayers want to see how grant, bond, and construction dollars are spent, and a district audit runs $40,000 to $130,000.',
-    startsAt: '$3,000 / yr', indicative: true,
+    startsAt: '$3,000 / yr',
+    sizing: 'Sized by enrollment: under 2,500 · 2,500–10,000 · over 10,000 students',
     fits: [
       { id: 'transparency', fit: 'Parent and taxpayer portal for budgets, grants, and construction spend.', price: '$3,000–$30,000 / yr by enrollment' },
       { id: 'vendor', fit: 'Construction and vendor spend gated on milestones; catch duplicate invoices across funds.', price: '$18,000–$90,000 / yr by spend' },
@@ -98,7 +100,8 @@ const SEGMENTS = [
   {
     id: 'hoa', name: 'HOAs & Condos', sub: 'Community associations',
     problem: 'Homeowners want to see where dues and reserves go, board turnover loses the paper trail, and contractor overpayment is the top dispute.',
-    startsAt: '$600 / yr', indicative: true,
+    startsAt: '$600 / yr',
+    sizing: 'Sized by doors: under 100 · 100–500 · over 500 units',
     fits: [
       { id: 'transparency', fit: 'Homeowner portal for dues, reserves, and vendor spend anyone can verify.', price: '$600–$3,600 / yr by unit count' },
       { id: 'vendor', fit: 'Every contractor payment backed by a bid and a completed milestone; catch duplicate and over-contract payments.', price: '$2,400–$12,000 / yr by spend' },
@@ -110,7 +113,8 @@ const SEGMENTS = [
   {
     id: 'special', name: 'Special Districts', sub: 'Water, fire, sewer, library, transit',
     problem: 'Ratepayers fund your capital projects and reserves, and a single-purpose district rarely has the finance staff to prove every figure.',
-    startsAt: '$1,800 / yr', indicative: true,
+    startsAt: '$1,800 / yr',
+    sizing: 'Sized by annual budget: under $5M · $5M–$50M · over $50M',
     fits: [
       { id: 'transparency', fit: 'Ratepayer portal for rates, reserves, and capital spend.', price: '$1,800–$24,000 / yr by budget' },
       { id: 'vendor', fit: 'Capital-project and vendor spend gated on milestones; catch duplicate and over-contract payments.', price: '$18,000–$90,000 / yr by spend' },
@@ -123,6 +127,7 @@ const SEGMENTS = [
     id: 'county', name: 'Counties & Authorities', sub: 'Counties & regional authorities',
     problem: 'Bigger budgets, more funds, more vendors, and a public that expects county-level transparency across every department.',
     startsAt: '$9,000 / yr',
+    sizing: 'Sized from mid county to large regional authority, by population and spend',
     fits: [
       { id: 'transparency', fit: 'Countywide resident and commissioner portal, every department, unlimited users.', price: '$9,000–$30,000 / yr' },
       { id: 'vendor', fit: 'Milestone-gated payouts and MCC spend cards across departments; continuous duplicate scans.', price: '$48,000–$120,000+ / yr by spend' },
@@ -135,6 +140,7 @@ const SEGMENTS = [
     id: 'state', name: 'State Agencies', sub: 'Departments & statewide',
     problem: 'Enterprise-scale spend, federal improper-payment mandates (PIIA), and multi-entity reporting that has to reconcile.',
     startsAt: 'Custom',
+    sizing: 'Priced per agency and spend under management; multi-entity and API quoted per deployment',
     fits: [
       { id: 'transparency', fit: 'Statewide public portal with an API, every figure verified.', price: 'from $30,000 / yr' },
       { id: 'vendor', fit: 'Continuous monitoring across entities, MCC spend cards, API, public contract portal.', price: '$120,000+ / yr by spend' },
@@ -170,10 +176,10 @@ const COVER = {
 };
 
 // Contents / top-nav order
+// Top-nav: segments + Pricing. Contact is the bar CTA + a home-foot link, so it's not duplicated here.
 const NAV = [
   ...SEGMENTS.map(s => ({ id: s.id, label: s.name })),
   { id: 'pricing', label: 'Pricing' },
-  { id: 'contact', label: 'Contact' },
 ];
 
 // ---------- renderers ----------
@@ -206,7 +212,8 @@ function renderSegmentView(s) {
       <h2>${s.name}</h2>
       <p class="lede">${s.problem}</p>
     </header>
-    <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">${s.startsAt}</span>${s.indicative ? '<span class="indic">indicative, finalized in your quote</span>' : ''}</div>
+    <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">${s.startsAt}</span></div>
+    ${s.sizing ? `<p class="sizing">${s.sizing}</p>` : ''}
     <h3 class="fits-h">What fits you</h3>
     <div class="fits">${s.fits.map(renderFitCard).join('')}</div>
     <blockquote class="pull">${s.roi}</blockquote>
@@ -385,7 +392,7 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 .startsat{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 10px}
 .startsat-k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
 .startsat-n{font-family:var(--serif);font-size:40px;line-height:1;color:var(--brand-deep);font-variant-numeric:tabular-nums}
-.indic{font-size:12.5px;color:var(--gold);font-weight:600}
+.sizing{font-size:14px;color:var(--ink-3);margin:10px 0 0;font-weight:500}
 
 /* fit cards */
 .fits-h{font-family:var(--serif);font-weight:400;font-size:22px;color:var(--brand-deep);margin:34px 0 14px}
