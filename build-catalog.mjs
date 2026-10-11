@@ -461,10 +461,15 @@ ${bodyHtml}
 }
 
 if (!doEncrypt) {
-  mkdirSync('site', { recursive: true });
   const html = page(BODY, SCRIPT);
+  mkdirSync('site', { recursive: true });
   writeFileSync('site/index.html', html);
-  console.log('WROTE site/index.html  (' + (html.length / 1024).toFixed(0) + ' KB; fonts ' + fonts.kb.toFixed(0) + ' KB; brand ' + (brand.ok ? 'inlined' : 'TEXT') + ')  [PUBLIC]');
+  // Mirror to docs/ so GitHub Pages can serve it (Settings → Pages → source: main /docs),
+  // alongside Netlify (which publishes site/ per netlify.toml). One build keeps both in sync.
+  mkdirSync('docs', { recursive: true });
+  writeFileSync('docs/index.html', html);
+  writeFileSync('docs/.nojekyll', '');
+  console.log('WROTE site/index.html + docs/index.html  (' + (html.length / 1024).toFixed(0) + ' KB; fonts ' + fonts.kb.toFixed(0) + ' KB; brand ' + (brand.ok ? 'inlined' : 'TEXT') + ')  [PUBLIC]');
 } else {
   // Optional AES-GCM gate (kept for parity with the VC catalog; off by default for this public catalog).
   const ITER = 250000;
