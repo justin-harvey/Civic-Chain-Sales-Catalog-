@@ -21,16 +21,19 @@ The build inlines brand fonts, logos, and the civic-grid texture as data-URIs, s
 node render-shots.mjs             # -> shots/{desktop,mobile}-*.png  (needs playwright; reuses the test-suite install)
 ```
 
-## Deploy (you create the repo + the demo site)
+## Deploy
 
-1. Create the GitHub repo `justin-harvey/Civic-Chain-Sales-Catalog-`.
-2. Connect this folder and push:
-   ```bash
-   git remote add origin git@github.com:justin-harvey/Civic-Chain-Sales-Catalog-.git
-   git push -u origin main
-   ```
-3. In Netlify, add a new site from this repo. `netlify.toml` already pins the publish dir to `site/`. No build command needed (the HTML is committed); optionally set the build command to `node build-catalog.mjs` so the site rebuilds on push.
-4. `site/index.html` ships with a `noindex` header while it is a demo. Remove the `[[headers]]` block in `netlify.toml` at launch to let it be indexed.
+The repo is live at `github.com/justin-harvey/Civic-Chain-Sales-Catalog-` (public, `main`). The build emits the page to **two** publish dirs so either host works with one build:
+- `site/` — what Netlify publishes (pinned by `netlify.toml`).
+- `docs/` — the GitHub Pages mirror (+ `.nojekyll`).
+
+**Option A, GitHub Pages (one click, no extra accounts).** Settings → Pages → Source: "Deploy from a branch" → Branch `main`, folder `/docs` → Save. Live at `https://justin-harvey.github.io/Civic-Chain-Sales-Catalog-/` within a minute.
+
+**Option B, Netlify.** Add a new site from this repo. `netlify.toml` already pins the publish dir to `site/`. No build command needed (the HTML is committed); optionally set the build command to `node build-catalog.mjs` so it rebuilds on push.
+
+The page carries a `noindex` meta tag (and `netlify.toml` adds a `noindex` header) while it is a demo. Drop those at launch to let it be indexed.
+
+> Pushing was done with a short-lived token that could write code but not toggle Pages, hence the one-click step above. Re-push after any rebuild: `node build-catalog.mjs` then commit + push `main`.
 
 ## Content model
 
