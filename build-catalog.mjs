@@ -50,21 +50,11 @@ async function inlineBrand() {
   }
 }
 
-// ---- Shared product reference (buyer voice, no internal metrics) ----
-// Each segment reuses these three, with a segment-specific "fit" line and price range.
+// ---- Shared product names. The plain-language definition is the segment-specific "fit" line below. ----
 const PRODUCTS = {
-  transparency: {
-    name: 'Transparency Layer',
-    blurb: 'A public record of every dollar, asked in plain English, every figure verified against the record. Unlimited users at $0 per seat.',
-  },
-  vendor: {
-    name: 'Vendor Management + Spend Cards',
-    blurb: 'Every vendor payout backed by a contract and a confirmed milestone, on MCC-locked cards, with duplicate and over-contract detection.',
-  },
-  finance: {
-    name: 'Public Finance',
-    blurb: 'Budgets, grants, and bonds, every figure traceable and reproducible for staff, your board, and your auditor.',
-  },
+  transparency: { name: 'Transparency Layer' },
+  vendor: { name: 'Vendor Management + Spend Cards' },
+  finance: { name: 'Public Finance' },
 };
 
 // ---- Segment-first content model ----
@@ -99,7 +89,7 @@ const SEGMENTS = [
   },
   {
     id: 'hoa', name: 'HOAs & Condos', sub: 'Community associations',
-    problem: 'Homeowners want to see where dues and reserves go, board turnover loses the paper trail, and contractor overpayment is the top dispute.',
+    problem: 'Homeowners want to see where dues and reserves go, but board turnover loses the paper trail and contractor overpayment is the top dispute.',
     startsAt: '$600 / yr',
     sizing: 'Sized by doors: under 100 · 100–500 · over 500 units',
     fits: [
@@ -130,7 +120,7 @@ const SEGMENTS = [
     sizing: 'Sized from mid county to large regional authority, by population and spend',
     fits: [
       { id: 'transparency', fit: 'Countywide resident and commissioner portal, every department, unlimited users.', price: '$9,000–$30,000 / yr' },
-      { id: 'vendor', fit: 'Milestone-gated payouts and MCC spend cards across departments; continuous duplicate scans.', price: '$48,000–$120,000+ / yr by spend' },
+      { id: 'vendor', fit: 'Milestone-gated payouts and category-locked spend cards across departments, with continuous duplicate scans.', price: '$48,000–$120,000+ / yr by spend' },
       { id: 'finance', fit: 'Multi-fund, grant, and bond figures reproducible for the board and your auditor.', price: '$36,000–$75,000+ / yr' },
     ],
     roi: 'One verifiable record across every department, and recover improper payments at county scale before they leave the door.',
@@ -143,7 +133,7 @@ const SEGMENTS = [
     sizing: 'Priced per agency and spend under management; multi-entity and API quoted per deployment',
     fits: [
       { id: 'transparency', fit: 'Statewide public portal with an API, every figure verified.', price: 'from $30,000 / yr' },
-      { id: 'vendor', fit: 'Continuous monitoring across entities, MCC spend cards, API, public contract portal.', price: '$120,000+ / yr by spend' },
+      { id: 'vendor', fit: 'Continuous monitoring across entities, category-locked spend cards, an API, and a public contract portal.', price: '$120,000+ / yr by spend' },
       { id: 'finance', fit: 'Every-figure verification across funds and entities, resident query portal.', price: '$75,000+ / yr' },
     ],
     roi: 'Improper payments sent $162B out the door in FY2024, and PIIA requires agencies to reduce them. Catch them continuously at software cost.',
@@ -171,7 +161,7 @@ const PRICING = {
 const COVER = {
   eyebrow: 'Pricing',
   title: 'Simple pricing for public money',
-  lede: 'One verifiable record of every dollar. Find your organization below and see what it costs, no RFP, no per-seat fees, no six-figure portal.',
+  lede: 'One verifiable record of every dollar. Find your organization and see what it costs. No RFP, no per-seat fees, no six-figure portal.',
   chips: ['Unlimited users at $0 / seat', 'Evidence, not certification', 'Buy without an RFP'],
 };
 
