@@ -1,0 +1,13 @@
+# Publishes the built site/ directory. This is the PUBLIC, buyer-facing pricing catalog:
+# list prices + the payment-savings story only. No COGS, float, ARPU, ARR, CAC, or moat.
+# (Those live in the confidential justin-harvey/Civic-Chain-catalog- repo and never appear here.)
+[build]
+  publish = "site"
+
+# noindex while this is a demo; delete this header block at launch to let it be indexed.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "no-referrer"

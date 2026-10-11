@@ -1,0 +1,4 @@
+# Generated preview artifacts (regenerate: node render-shots.mjs)
+shots/
+node_modules/
+.DS_Store
