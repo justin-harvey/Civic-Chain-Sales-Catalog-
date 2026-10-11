@@ -174,10 +174,11 @@ const NAV = [
 
 // ---------- renderers ----------
 function renderSegmentCard(s) {
+  const price = s.startsAt === 'Custom' ? 'Custom' : `from ${s.startsAt}`;
   return `<button class="toc" data-nav="${s.id}">
     <span class="toc-t">${s.name}</span>
     <span class="toc-s">${s.sub}</span>
-    <span class="toc-price">from ${s.startsAt}</span>
+    <span class="toc-price">${price}</span>
     <span class="toc-go">→</span>
   </button>`;
 }
@@ -202,7 +203,7 @@ function renderSegmentView(s) {
       <h2>${s.name}</h2>
       <p class="lede">${s.problem}</p>
     </header>
-    <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">${s.startsAt}</span></div>
+    ${s.startsAt !== 'Custom' ? `<div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">${s.startsAt}</span></div>` : ''}
     ${s.sizing ? `<p class="sizing">${s.sizing}</p>` : ''}
     <h3 class="fits-h">What fits you</h3>
     <div class="fits">${s.fits.map(renderFitCard).join('')}</div>
