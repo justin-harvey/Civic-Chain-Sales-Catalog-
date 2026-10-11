@@ -452,6 +452,7 @@ function page(bodyHtml, inlineScript) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Civic Chain · Pricing</title>
+${brand.ok ? `<link rel="icon" type="image/svg+xml" href="${brand.icon}">` : ''}
 ${fonts.style}
 <style>${STYLE}</style>
 </head><body>
@@ -486,7 +487,7 @@ if (!doEncrypt) {
   const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(payloadHtml));
   const payload = { salt: b64(salt), iv: b64(iv), ct: b64(ct), iter: ITER };
   const gate = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
-<title>Civic Chain · Pricing</title>${fonts.style}
+<title>Civic Chain · Pricing</title>${brand.ok ? `<link rel="icon" type="image/svg+xml" href="${brand.icon}">` : ''}${fonts.style}
 <style>:root{--brand-deep:#262067;--brand:#3d3c86;--gold:#8a6a2f;--paper:#faf9f6;--surface:#fff;--ink:#16123a;--ink-3:#817c99;--border:rgba(22,18,58,.11)}
 *{box-sizing:border-box}body{margin:0;font-family:"DM Sans",sans-serif;background:var(--paper);${gridBg}color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:14px;max-width:440px;width:100%;padding:44px 40px;box-shadow:0 18px 50px rgba(22,18,58,.12)}
