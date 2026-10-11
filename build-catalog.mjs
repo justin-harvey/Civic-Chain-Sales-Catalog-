@@ -172,7 +172,7 @@ const COVER = {
 // Contents / top-nav order
 const NAV = [
   ...SEGMENTS.map(s => ({ id: s.id, label: s.name })),
-  { id: 'pricing', label: 'How pricing works' },
+  { id: 'pricing', label: 'Pricing' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -299,6 +299,10 @@ const BODY = `
       <p class="lede">Pick your organization type and see what it costs. One engine, priced to how you already buy.</p>
     </header>
     <div class="toc-grid">${segmentCards}</div>
+    <div class="home-foot">
+      <button class="home-link" data-nav="pricing">How pricing works →</button>
+      <button class="home-link" data-nav="contact">Contact →</button>
+    </div>
   </section>
 
   ${segmentViews}
@@ -372,6 +376,10 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 .toc-price{margin-top:8px;font-size:14px;font-weight:700;color:var(--brand)}
 .toc-go{position:absolute;top:24px;right:22px;color:var(--brand);font-size:20px;opacity:0;transition:opacity .15s,transform .15s}
 .toc:hover .toc-go{opacity:1;transform:translateX(3px)}
+
+.home-foot{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:30px auto 0}
+.home-link{border:1px solid var(--border);background:var(--surface);color:var(--brand-deep);font-family:var(--sans);font-size:14.5px;font-weight:600;border-radius:var(--rctrl);padding:10px 18px;cursor:pointer;transition:all .15s}
+.home-link:hover{background:var(--brand-tint);border-color:var(--brand)}
 
 /* starts-at */
 .startsat{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 10px}

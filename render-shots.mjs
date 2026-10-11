@@ -18,13 +18,15 @@ async function run(label, viewport) {
     console.log('shot', label, name);
   }
   await shot('1-cover', false);
-  await page.click('[data-nav="home"]');
+  await page.click('.view.active .enter');
   await shot('2-segments', true);
-  await page.click('[data-nav="municipal"]');
+  await page.click('.view.active .toc[data-nav="municipal"]');
   await shot('3-municipal', true);
-  await page.click('[data-nav="hoa"]');
+  await page.click('.view.active .back');
+  await page.click('.view.active .toc[data-nav="hoa"]');
   await shot('4-hoa', true);
-  await page.click('[data-nav="pricing"]');
+  await page.click('.view.active .back');
+  await page.click('.view.active .home-link[data-nav="pricing"]');
   await shot('5-pricing', true);
   await page.close();
 }
