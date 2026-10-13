@@ -129,6 +129,7 @@ const SEGMENTS = [
     savingsHeadline: 'Towns your size typically save more than they pay.',
     savingsBands: 'municipal',
     savingsPlaceholder: null,
+    savingsCeiling: '$2M', // grid-card "up to"; = large-city band core high ($2,000,000). See offset-model §8.
     fits: [
       { id: 'transparency', fit: 'Resident and council portal, plain-English answers anyone can verify, unlimited users.', price: '$1,800–$30,000 / yr by population', saves: 'Cuts public-records and audit prep time' },
       { id: 'vendor', fit: 'Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.', price: '$8,400–$120,000 / yr by spend', saves: 'Captures most of the modeled savings: staff time and unverified vendor expenses' },
@@ -143,6 +144,7 @@ const SEGMENTS = [
     startsAt: '$3,000 / yr',
     sizing: 'Sized by enrollment: under 2,500 · 2,500–10,000 · over 10,000 students',
     savingsPlaceholder: 'Savings model for School Districts in progress. Ask us to model yours from your public budget.',
+    savingsCeiling: '$1.9M', // Garland ISD $146.5M vendor awards x 1.3%. See offset-model §8.
     fits: [
       { id: 'transparency', fit: 'Parent and taxpayer portal for budgets, grants, and construction spend.', price: '$3,000–$30,000 / yr by enrollment' },
       { id: 'vendor', fit: 'Category-locked p-cards for staff purchasing, plus vendor and construction spend gated on milestones.', price: '$18,000–$90,000 / yr by spend' },
@@ -157,6 +159,7 @@ const SEGMENTS = [
     startsAt: '$600 / yr',
     sizing: 'Priced to your community size. Talk to us for a quote.',
     savingsPlaceholder: 'Savings model for HOAs & Condos in progress. Ask us to model yours from your public budget.',
+    savingsCeiling: '$65K', // large master association ~$5M contracted x 1.3% (conservative). See offset-model §8.
     fits: [
       { id: 'transparency', fit: 'Homeowner portal for dues, reserves, and vendor spend anyone can verify.', price: 'from $600 / yr' },
       { id: 'vendor', fit: 'Every contractor payment backed by a bid and a completed milestone; catch duplicate and over-contract payments.', price: 'by community size' },
@@ -171,6 +174,7 @@ const SEGMENTS = [
     startsAt: '$1,800 / yr',
     sizing: 'Sized by annual budget: under $5M · $5M–$50M · over $50M',
     savingsPlaceholder: 'Savings model for Special Districts in progress. Ask us to model yours from your public budget.',
+    savingsCeiling: '$2M', // MSD Greater Cincinnati $154M capital x 1.3%. See offset-model §8.
     fits: [
       { id: 'transparency', fit: 'Ratepayer portal for rates, reserves, and capital spend.', price: '$1,800–$24,000 / yr by budget' },
       { id: 'vendor', fit: 'Capital-project and vendor spend gated on milestones; catch duplicate and over-contract payments.', price: '$18,000–$90,000 / yr by spend' },
@@ -185,6 +189,7 @@ const SEGMENTS = [
     startsAt: '$9,000 / yr',
     sizing: 'Sized from mid county to large regional authority, by population and spend',
     savingsPlaceholder: 'Savings model for Counties & Authorities in progress. Ask us to model yours from your public budget.',
+    savingsCeiling: '$3.9M', // large county ~$300M contracted x 1.3% (LA County $6-8B is the outlier). See offset-model §8.
     fits: [
       { id: 'transparency', fit: 'Countywide resident and commissioner portal, every department, unlimited users.', price: '$9,000–$30,000 / yr' },
       { id: 'vendor', fit: 'Milestone-gated payouts and category-locked spend cards across departments, with continuous duplicate scans.', price: '$48,000–$120,000+ / yr by spend' },
@@ -199,6 +204,7 @@ const SEGMENTS = [
     startsAt: 'Custom',
     sizing: 'Priced per agency and spend under management; multi-entity and API quoted per deployment',
     savingsPlaceholder: 'Savings model for State Agencies in progress. Ask us to model yours from your public budget.',
+    savingsCeiling: '$25M', // Minnesota $2.1B statewide procurement x 1.3% (statewide/multi-agency). See offset-model §8.
     fits: [
       { id: 'transparency', fit: 'Statewide public portal with an API, every figure verified.', price: 'from $30,000 / yr' },
       { id: 'vendor', fit: 'Continuous monitoring across entities, category-locked spend cards, an API, and a public contract portal.', price: '$120,000+ / yr by spend' },
@@ -244,11 +250,12 @@ const NAV = [
 // ---------- renderers ----------
 function renderSegmentCard(s) {
   // Price intentionally omitted on the grid (savings-led reframe keeps price on the detail page).
-  // The cue is a consolidation hook, not a figure: no per-segment savings number is modeled except municipal.
+  // Cue shows the MODELED "up to" savings ceiling per vertical: upper-bound contracted spend of the
+  // largest entity x the conservative ~1.3% large-entity rate. Derivation + sources in offset-model §8.
   return `<button class="toc" data-nav="${s.id}">
     <span class="toc-t">${s.name}</span>
     <span class="toc-s">${s.sub}</span>
-    <span class="toc-cue">See what it replaces</span>
+    <span class="toc-cue">Modeled savings up to ${s.savingsCeiling} / yr</span>
     <span class="toc-go">→</span>
   </button>`;
 }
