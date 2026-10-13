@@ -197,6 +197,52 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 .fit-head h4{font-family:var(--serif);font-weight:400;font-size:20px;color:var(--brand-deep);margin:0}
 .fit-price{font-size:14.5px;font-weight:700;color:var(--brand);white-space:nowrap;font-variant-numeric:tabular-nums}
 .fit-line{font-size:15.5px;color:var(--ink-2);margin:0;line-height:1.55}
+.fit-saves{position:relative;font-size:14px;color:var(--brand);font-weight:600;margin:8px 0 0;padding-left:16px}
+.fit-saves::before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:2px;background:var(--gold)}
+
+/* savings section: size picker + band block + modeled example */
+.savings{margin:34px 0 10px}
+.savings-h{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--brand-deep);margin:0 0 18px;max-width:720px;line-height:1.15}
+.sizepicker-wrap{max-width:720px}
+.size-radio{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
+.sizepicker{display:flex;gap:8px;margin-bottom:18px}
+.sizetab{flex:1;text-align:center;font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:var(--rctrl);padding:10px 12px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.sizetab:hover{background:var(--brand-tint);border-color:var(--brand)}
+.bandpanel{display:none}
+
+.bandblock{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--brand);border-radius:var(--rcard);padding:26px 26px 22px;box-shadow:var(--sh-card)}
+.band-eyebrow{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:12px}
+.band-num{font-family:var(--serif);font-weight:400;font-size:clamp(30px,6vw,50px);line-height:1.04;color:var(--brand-deep);letter-spacing:-.01em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.band-sub{font-size:14px;color:var(--ink-3);font-weight:600;margin-top:4px}
+.band-rate{font-size:15.5px;color:var(--ink-2);margin:14px 0 0}
+.band-upside{position:relative;font-size:14.5px;color:var(--ink-3);margin:10px 0 0;font-weight:500}
+.band-info{display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:17px;height:17px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:11px;font-weight:700;cursor:help;vertical-align:middle;position:relative}
+.band-tip{display:none;position:absolute;left:50%;bottom:150%;transform:translateX(-50%);width:260px;max-width:72vw;background:var(--brand-deep);color:#fff;font-size:13px;font-weight:400;line-height:1.5;text-align:left;padding:12px 14px;border-radius:10px;box-shadow:var(--sh-hot);z-index:5}
+.band-info:hover .band-tip,.band-info:focus .band-tip{display:block}
+.band-caption{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--brand);margin:18px 0 0;line-height:1.35}
+
+.example{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rcard);padding:22px 24px;margin-top:16px;max-width:520px}
+.ex-label{font-family:var(--serif);font-size:18px;color:var(--brand-deep);margin-bottom:12px}
+.ex-rows{font-variant-numeric:tabular-nums}
+.ex-row{display:flex;justify-content:space-between;gap:16px;padding:7px 0;font-size:15px;color:var(--ink-2)}
+.ex-n{font-weight:600;color:var(--ink);white-space:nowrap}
+.ex-net{border-top:1px solid var(--border);margin-top:6px;padding-top:12px;color:var(--ink)}
+.ex-net span{font-weight:700}
+.ex-upside{color:var(--ink-3)}
+.ex-upside .ex-n{color:var(--brand);font-weight:700}
+.ex-disclaimer{font-size:13px;color:var(--ink-3);line-height:1.5;margin:12px 0 0;max-width:520px}
+
+.placeholder{background:var(--surface-2);border:1px dashed var(--border);border-radius:var(--rcard);padding:22px 24px;margin:24px 0 6px;max-width:720px}
+.placeholder-t{font-size:15.5px;color:var(--ink-2);margin:0 0 12px;line-height:1.55}
+.placeholder-link{border:1px solid var(--brand);background:none;color:var(--brand-deep);font-family:var(--sans);font-size:14.5px;font-weight:700;border-radius:var(--rctrl);padding:9px 16px;cursor:pointer;transition:background .15s}
+.placeholder-link:hover{background:var(--brand-tint)}
+
+#sz-municipal-small:checked~.bandwrap .bandpanel[data-size="small"],
+#sz-municipal-mid:checked~.bandwrap .bandpanel[data-size="mid"],
+#sz-municipal-large:checked~.bandwrap .bandpanel[data-size="large"]{display:block}
+#sz-municipal-small:checked~.sizepicker [for="sz-municipal-small"],
+#sz-municipal-mid:checked~.sizepicker [for="sz-municipal-mid"],
+#sz-municipal-large:checked~.sizepicker [for="sz-municipal-large"]{background:var(--brand);color:#fff;border-color:var(--brand)}
 
 .pull{margin:30px 0;padding:4px 0 4px 26px;border-left:3px solid var(--gold);font-family:var(--serif);font-size:24px;line-height:1.4;color:var(--brand-deep);max-width:820px;font-style:italic}
 .buy{display:grid;grid-template-columns:120px 1fr;gap:16px;max-width:820px;padding:18px 0;border-top:1px solid var(--border)}
@@ -231,6 +277,15 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
   .topnav{display:none}
   .buy{grid-template-columns:1fr;gap:6px}
 }
+@media(max-width:430px){
+  .savings-h{font-size:22px}
+  .sizepicker{gap:6px}
+  .sizetab{font-size:12.5px;padding:9px 6px}
+  .bandblock{padding:22px 18px 20px}
+  .band-num{font-size:26px}
+  .example{padding:20px 18px}
+  .ex-row{font-size:14.5px}
+}
 </style>
 </head><body>
 
@@ -244,10 +299,10 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 
   <section class="view cover active" data-view="cover">
     <div class="cover-inner">
-      <span class="eyebrow">Pricing</span>
-      <h1>Simple pricing for public money</h1>
-      <p class="cover-lede">One verifiable record of every dollar. Find your organization and see what it costs. No RFP, no per-seat fees, no six-figure portal.</p>
-      <div class="cchips"><span class="cchip">Unlimited users at $0 / seat</span><span class="cchip">Evidence, not certification</span><span class="cchip">Buy without an RFP</span></div>
+      <span class="eyebrow">Savings</span>
+      <h1>See what your town saves</h1>
+      <p class="cover-lede">Pick your organization and size. We show the savings modeled for a town like yours, then what it costs to get them.</p>
+      <div class="cchips"><span class="cchip">Modeled on real budget data</span><span class="cchip">Unlimited users at $0 / seat</span><span class="cchip">Buy without an RFP</span></div>
       <button class="enter" data-nav="home">Find your organization →</button>
     </div>
   </section>
@@ -303,20 +358,79 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
       <h2>Municipalities</h2>
       <p class="lede">Residents and council want to see where the money goes, and you need to prove every figure without paying for a six-figure open-data portal.</p>
     </header>
-    <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">$1,800 / yr</span></div>
-    <p class="sizing">Sized by population: under 10k · 10k–100k · over 100k</p>
-    <h3 class="fits-h">What fits you</h3>
+    <section class="savings" aria-label="Savings by size">
+    <h3 class="savings-h">Towns your size typically save more than they pay.</h3>
+    <div class="sizepicker-wrap">
+      <input type="radio" name="sz-municipal" id="sz-municipal-small" class="size-radio" checked><input type="radio" name="sz-municipal" id="sz-municipal-mid" class="size-radio"><input type="radio" name="sz-municipal" id="sz-municipal-large" class="size-radio">
+      <div class="sizepicker" role="tablist"><label class="sizetab" for="sz-municipal-small">Small town</label><label class="sizetab" for="sz-municipal-mid">Mid-size city</label><label class="sizetab" for="sz-municipal-large">Large city</label></div>
+      <div class="bandwrap"><div class="bandpanel" data-size="small"><div class="bandblock">
+    <span class="band-eyebrow">SMALL TOWN · Under 10,000 residents</span>
+    <div class="band-num">$9,200–$46,000 / yr</div>
+    <div class="band-sub">modeled savings</div>
+    <p class="band-rate">~6% of contracted spend, on $150K–$750K a year</p>
+    <p class="band-upside">Faster-payment upside: up to $69,000 / yr<span class="band-info" tabindex="0" aria-label="Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.">ⓘ<span class="band-tip" role="tooltip">Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.</span></span></p>
+    <p class="band-caption">Small towns save the largest share of what they spend.</p>
+  </div><div class="example">
+    <div class="ex-label">Modeled: a New England town of 4,200</div>
+    <div class="ex-rows">
+      <div class="ex-row"><span>Contracted services</span><span class="ex-n">$385,000</span></div>
+      <div class="ex-row"><span>Core savings</span><span class="ex-n">$24,000</span></div>
+      <div class="ex-row"><span>Civic-Chain fee</span><span class="ex-n">−$8,400</span></div>
+      <div class="ex-row ex-net"><span>Net, before upside</span><span class="ex-n">$15,000</span></div>
+      <div class="ex-row ex-upside"><span>With faster-payment upside</span><span class="ex-n">$35,000 savings</span></div>
+    </div>
+  </div>
+  <p class="ex-disclaimer">Modeled from public budget documents and municipal benchmarks. Not a customer result. Your figures depend on your contracts and payment mix.</p></div><div class="bandpanel" data-size="mid"><div class="bandblock">
+    <span class="band-eyebrow">MID-SIZE CITY · 10,000–100,000 residents</span>
+    <div class="band-num">$17,000–$100,000 / yr</div>
+    <div class="band-sub">modeled savings</div>
+    <p class="band-rate">~1.7% of contracted spend, on $1M–$6M a year</p>
+    <p class="band-upside">Faster-payment upside: up to $270,000 / yr<span class="band-info" tabindex="0" aria-label="Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.">ⓘ<span class="band-tip" role="tooltip">Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.</span></span></p>
+    <p class="band-caption">Professional staff, same structural overhead.</p>
+  </div><div class="example">
+    <div class="ex-label">Modeled: a Maine city of 26,000</div>
+    <div class="ex-rows">
+      <div class="ex-row"><span>Contracted services</span><span class="ex-n">$3.8M</span></div>
+      <div class="ex-row"><span>Core savings</span><span class="ex-n">$65,000</span></div>
+      <div class="ex-row"><span>Civic-Chain fee</span><span class="ex-n">−$42,000</span></div>
+      <div class="ex-row ex-net"><span>Net, before upside</span><span class="ex-n">$23,000</span></div>
+      <div class="ex-row ex-upside"><span>With faster-payment upside</span><span class="ex-n">$170,000 savings</span></div>
+    </div>
+  </div>
+  <p class="ex-disclaimer">Modeled from public budget documents and municipal benchmarks. Not a customer result. Your figures depend on your contracts and payment mix.</p></div><div class="bandpanel" data-size="large"><div class="bandblock">
+    <span class="band-eyebrow">LARGE CITY · Over 100,000 residents</span>
+    <div class="band-num">$320,000–$2,000,000 / yr</div>
+    <div class="band-sub">modeled savings</div>
+    <p class="band-rate">~1.3% of contracted spend, on $25M–$160M a year</p>
+    <p class="band-upside">Faster-payment upside: up to $3,200,000 / yr<span class="band-info" tabindex="0" aria-label="Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.">ⓘ<span class="band-tip" role="tooltip">Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.</span></span></p>
+    <p class="band-caption">The smallest rate, the largest dollars.</p>
+  </div><div class="example">
+    <div class="ex-label">Modeled: one department of a city of 460,000</div>
+    <div class="ex-rows">
+      <div class="ex-row"><span>Contracted services</span><span class="ex-n">$55M</span></div>
+      <div class="ex-row"><span>Core savings</span><span class="ex-n">$690,000</span></div>
+      <div class="ex-row"><span>Civic-Chain fee</span><span class="ex-n">−$240,000</span></div>
+      <div class="ex-row ex-net"><span>Net, before upside</span><span class="ex-n">$450,000</span></div>
+      <div class="ex-row ex-upside"><span>With faster-payment upside</span><span class="ex-n">$1.1M savings</span></div>
+    </div>
+  </div>
+  <p class="ex-disclaimer">Modeled from public budget documents and municipal benchmarks. Not a customer result. Your figures depend on your contracts and payment mix.</p></div></div>
+    </div>
+  </section>
+    <h3 class="fits-h">What you pay</h3>
     <div class="fits"><div class="fit">
     <div class="fit-head"><h4>Transparency Layer</h4><span class="fit-price">$1,800–$30,000 / yr by population</span></div>
     <p class="fit-line">Resident and council portal, plain-English answers anyone can verify, unlimited users.</p>
+    <p class="fit-saves">Cuts public-records and audit prep time</p>
   </div><div class="fit">
     <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$18,000–$120,000 / yr by spend</span></div>
     <p class="fit-line">Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.</p>
+    <p class="fit-saves">Captures most of the modeled savings: staff time and unverified vendor expenses</p>
   </div><div class="fit">
     <div class="fit-head"><h4>Public Finance</h4><span class="fit-price">$12,000–$75,000 / yr by population</span></div>
     <p class="fit-line">Budget, grant, and bond figures your auditor can reproduce in one click.</p>
+    <p class="fit-saves">Shortens annual audit reconciliation</p>
   </div></div>
-    <blockquote class="pull">Replace a six-figure open-data portal at a tenth the cost, and recover even 0.1% of a $25M spend, that is $25,000, in caught duplicate payments.</blockquote>
     <div class="buy"><span class="buy-k">Easy to buy</span><p>Entry tiers sit under the typical $25k sole-source threshold, so you can buy without an RFP. Larger tiers through Sourcewell, OMNIA, or GSA.</p></div>
     <nav class="secnav">
       <button class="secnav-btn" data-nav="home">← All organizations</button>
@@ -333,16 +447,23 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     </header>
     <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">$3,000 / yr</span></div>
     <p class="sizing">Sized by enrollment: under 2,500 · 2,500–10,000 · over 10,000 students</p>
+    <div class="placeholder">
+    <p class="placeholder-t">Savings model for School Districts in progress. Ask us to model yours from your public budget.</p>
+    <button class="placeholder-link" data-nav="contact">Ask us to model yours →</button>
+  </div>
     <h3 class="fits-h">What fits you</h3>
     <div class="fits"><div class="fit">
     <div class="fit-head"><h4>Transparency Layer</h4><span class="fit-price">$3,000–$30,000 / yr by enrollment</span></div>
     <p class="fit-line">Parent and taxpayer portal for budgets, grants, and construction spend.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$18,000–$90,000 / yr by spend</span></div>
     <p class="fit-line">Category-locked p-cards for staff purchasing, plus vendor and construction spend gated on milestones.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Public Finance</h4><span class="fit-price">$12,000–$60,000 / yr by enrollment</span></div>
     <p class="fit-line">Grant-drawdown and bond-proceeds figures reproducible for the board and your auditor.</p>
+    
   </div></div>
     <blockquote class="pull">Hand your auditor the evidence packet in one click instead of three weeks of email, for a fraction of a $40,000 to $130,000 district audit.</blockquote>
     <div class="buy"><span class="buy-k">Easy to buy</span><p>Buy through your state contract or a purchasing co-op; entry tiers are under the sole-source threshold.</p></div>
@@ -361,16 +482,23 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     </header>
     <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">$600 / yr</span></div>
     <p class="sizing">Priced to your community size. Talk to us for a quote.</p>
+    <div class="placeholder">
+    <p class="placeholder-t">Savings model for HOAs & Condos in progress. Ask us to model yours from your public budget.</p>
+    <button class="placeholder-link" data-nav="contact">Ask us to model yours →</button>
+  </div>
     <h3 class="fits-h">What fits you</h3>
     <div class="fits"><div class="fit">
     <div class="fit-head"><h4>Transparency Layer</h4><span class="fit-price">from $600 / yr</span></div>
     <p class="fit-line">Homeowner portal for dues, reserves, and vendor spend anyone can verify.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">by community size</span></div>
     <p class="fit-line">Every contractor payment backed by a bid and a completed milestone; catch duplicate and over-contract payments.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Public Finance</h4><span class="fit-price">by community size</span></div>
     <p class="fit-line">Reserve-fund and operating-budget figures reproducible across board turnover.</p>
+    
   </div></div>
     <blockquote class="pull">End the dues dispute with a record every homeowner can check, and catch the duplicate contractor invoice before it is paid.</blockquote>
     <div class="buy"><span class="buy-k">Easy to buy</span><p>Buy direct with a board vote, no RFP; management companies can roll it across their portfolio.</p></div>
@@ -389,16 +517,23 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     </header>
     <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">$1,800 / yr</span></div>
     <p class="sizing">Sized by annual budget: under $5M · $5M–$50M · over $50M</p>
+    <div class="placeholder">
+    <p class="placeholder-t">Savings model for Special Districts in progress. Ask us to model yours from your public budget.</p>
+    <button class="placeholder-link" data-nav="contact">Ask us to model yours →</button>
+  </div>
     <h3 class="fits-h">What fits you</h3>
     <div class="fits"><div class="fit">
     <div class="fit-head"><h4>Transparency Layer</h4><span class="fit-price">$1,800–$24,000 / yr by budget</span></div>
     <p class="fit-line">Ratepayer portal for rates, reserves, and capital spend.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$18,000–$90,000 / yr by spend</span></div>
     <p class="fit-line">Capital-project and vendor spend gated on milestones; catch duplicate and over-contract payments.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Public Finance</h4><span class="fit-price">$12,000–$48,000 / yr by budget</span></div>
     <p class="fit-line">Reserve and capital figures reproducible for your board and your auditor.</p>
+    
   </div></div>
     <blockquote class="pull">Show ratepayers exactly what the rate increase funds, and prove your capital spend without hiring finance staff.</blockquote>
     <div class="buy"><span class="buy-k">Easy to buy</span><p>Entry tiers are under the sole-source threshold; larger tiers through Sourcewell, OMNIA, or GSA.</p></div>
@@ -417,16 +552,23 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     </header>
     <div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">$9,000 / yr</span></div>
     <p class="sizing">Sized from mid county to large regional authority, by population and spend</p>
+    <div class="placeholder">
+    <p class="placeholder-t">Savings model for Counties & Authorities in progress. Ask us to model yours from your public budget.</p>
+    <button class="placeholder-link" data-nav="contact">Ask us to model yours →</button>
+  </div>
     <h3 class="fits-h">What fits you</h3>
     <div class="fits"><div class="fit">
     <div class="fit-head"><h4>Transparency Layer</h4><span class="fit-price">$9,000–$30,000 / yr</span></div>
     <p class="fit-line">Countywide resident and commissioner portal, every department, unlimited users.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$48,000–$120,000+ / yr by spend</span></div>
     <p class="fit-line">Milestone-gated payouts and category-locked spend cards across departments, with continuous duplicate scans.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Public Finance</h4><span class="fit-price">$36,000–$75,000+ / yr</span></div>
     <p class="fit-line">Multi-fund, grant, and bond figures reproducible for the board and your auditor.</p>
+    
   </div></div>
     <blockquote class="pull">One verifiable record across every department, and recover improper payments at county scale before they leave the door.</blockquote>
     <div class="buy"><span class="buy-k">Easy to buy</span><p>Sell through Sourcewell, OMNIA, or GSA so the board skips the RFP; multi-entity pricing available.</p></div>
@@ -445,16 +587,23 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     </header>
     
     <p class="sizing">Priced per agency and spend under management; multi-entity and API quoted per deployment</p>
+    <div class="placeholder">
+    <p class="placeholder-t">Savings model for State Agencies in progress. Ask us to model yours from your public budget.</p>
+    <button class="placeholder-link" data-nav="contact">Ask us to model yours →</button>
+  </div>
     <h3 class="fits-h">What fits you</h3>
     <div class="fits"><div class="fit">
     <div class="fit-head"><h4>Transparency Layer</h4><span class="fit-price">from $30,000 / yr</span></div>
     <p class="fit-line">Statewide public portal with an API, every figure verified.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$120,000+ / yr by spend</span></div>
     <p class="fit-line">Continuous monitoring across entities, category-locked spend cards, an API, and a public contract portal.</p>
+    
   </div><div class="fit">
     <div class="fit-head"><h4>Public Finance</h4><span class="fit-price">$75,000+ / yr</span></div>
     <p class="fit-line">Every-figure verification across funds and entities, resident query portal.</p>
+    
   </div></div>
     <blockquote class="pull">Improper payments sent $162B out the door in FY2024, and PIIA requires agencies to reduce them. Catch them continuously at software cost.</blockquote>
     <div class="buy"><span class="buy-k">Easy to buy</span><p>Buy through GSA or a state master contract; multi-entity and API pricing quoted per deployment.</p></div>
@@ -469,10 +618,10 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     <header class="sec-head">
       <span class="kicker">Pricing</span>
       <h2>How pricing works</h2>
-      <p class="lede">Two simple parts. A subscription sized to your organization, and an optional low fee only on the payments you move through us.</p>
+      <p class="lede">Most towns save more than they pay. A subscription sized to your organization, and an optional low fee only on the payments you move through us.</p>
     </header>
     <div class="grid g3"><div class="ecard streamcard"><div class="snum">1</div><h4>Subscription</h4><p>An annual price sized to your population, enrollment, budget, or unit count, never per seat. Staff, board, council, and residents all get access at $0 per user.</p></div><div class="ecard streamcard"><div class="snum">2</div><h4>Optional payment fee</h4><p>When you move vendor payments on our rails, you pay 0.25–0.75%, versus the 2.25–2.75% most card and processor rails charge today. The savings scale with the volume you move.</p></div><div class="ecard streamcard"><div class="snum">3</div><h4>One-time onboarding</h4><p>A single implementation fee per deployment that covers your data setup and integrations. Quoted per deal, it reflects real setup work.</p></div></div>
-    <ul class="notes"><li>Every entry tier sits under the typical $25,000 government sole-source threshold, so you can buy without an RFP. Larger tiers sell through cooperative-purchasing vehicles (Sourcewell, OMNIA, GSA) so you skip the RFP entirely.</li><li>We produce evidence, not a certification. The system refuses to guess rather than return a figure it cannot verify against the record, by design, for public money.</li><li>Prices are list prices, confirmed in your SOW. The payment-savings depends on your payment mix (card versus ACH), so we confirm the rate in writing before quoting a dollar figure.</li></ul>
+    <ul class="notes"><li>Savings figures are modeled from three case studies built on public budget data for towns of 4,200, 26,000, and 460,000 residents. They are estimates, not results, and we measure your actual savings during your pilot.</li><li>Every entry tier sits under the typical $25,000 government sole-source threshold, so you can buy without an RFP. Larger tiers sell through cooperative-purchasing vehicles (Sourcewell, OMNIA, GSA) so you skip the RFP entirely.</li><li>We produce evidence, not a certification. The system refuses to guess rather than return a figure it cannot verify against the record, by design, for public money.</li><li>Prices are list prices, confirmed in your SOW. The payment-savings depends on your payment mix (card versus ACH), so we confirm the rate in writing before quoting a dollar figure.</li></ul>
     <nav class="secnav">
       <button class="secnav-btn" data-nav="home">← All organizations</button>
       <button class="secnav-btn next" data-nav="contact">Contact →</button>

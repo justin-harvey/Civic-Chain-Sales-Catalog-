@@ -57,19 +57,82 @@ const PRODUCTS = {
   finance: { name: 'Public Finance' },
 };
 
+// ---- Savings bands (MODELED, from the three case studies; see the private savings-bands spec, NOT in docs/) ----
+// Core = staff labor + audit/records + unverified vendor expenses.
+// Upside = bid premium from faster payment (unverified; always labeled).
+// PayPort fee deliberately excluded (not a real vendor-payment cost).
+// This is the single source of truth for every savings figure on the site. No savings figure is hard-coded in a renderer.
+const SAVINGS_BANDS = {
+  municipal: [
+    {
+      id: 'small', label: 'Small town', range: 'Under 10,000 residents',
+      spend: '$150K–$750K in contracted services',
+      coreRate: '~6% of contracted spend',
+      core: '$9,200–$46,000 / yr',
+      upside: 'up to $69,000 / yr',
+      example: {
+        label: 'Modeled: a New England town of 4,200',
+        spend: '$385,000',
+        core: '$24,000',
+        upside: '$35,000',
+        fee: '$8,400',
+        net: '$15,000',
+      },
+      headline: 'Small towns save the largest share of what they spend.',
+    },
+    {
+      id: 'mid', label: 'Mid-size city', range: '10,000–100,000 residents',
+      spend: '$1M–$6M in contracted services',
+      coreRate: '~1.7% of contracted spend',
+      core: '$17,000–$100,000 / yr',
+      upside: 'up to $270,000 / yr',
+      example: {
+        label: 'Modeled: a Maine city of 26,000',
+        spend: '$3.8M',
+        core: '$65,000',
+        upside: '$170,000',
+        fee: '$42,000',
+        net: '$23,000',
+      },
+      headline: 'Professional staff, same structural overhead.',
+    },
+    {
+      id: 'large', label: 'Large city', range: 'Over 100,000 residents',
+      spend: '$25M–$160M in contracted services',
+      coreRate: '~1.3% of contracted spend',
+      core: '$320,000–$2,000,000 / yr',
+      upside: 'up to $3,200,000 / yr',
+      example: {
+        label: 'Modeled: one department of a city of 460,000',
+        spend: '$55M',
+        core: '$690,000',
+        upside: '$1.1M',
+        fee: '$240,000',
+        net: '$450,000',
+      },
+      headline: 'The smallest rate, the largest dollars.',
+    },
+  ],
+};
+
 // ---- Segment-first content model ----
 // INDICATIVE prices on net-new segments (schools, HOAs, special districts) are first-pass and get
 // hardened in M2 against the private pricing docs. Municipal / county / state carry the reconciled bands.
+// Savings fields: savingsHeadline (section title above the band block), savingsBands (key into
+// SAVINGS_BANDS; omit for segments without modeled data), savingsPlaceholder (muted card shown instead).
 const SEGMENTS = [
   {
     id: 'municipal', name: 'Municipalities', sub: 'Towns & cities',
     problem: 'Residents and council want to see where the money goes, and you need to prove every figure without paying for a six-figure open-data portal.',
     startsAt: '$1,800 / yr',
     sizing: 'Sized by population: under 10k · 10k–100k · over 100k',
+    savingsHeadline: 'Towns your size typically save more than they pay.',
+    savingsBands: 'municipal',
+    savingsPlaceholder: null,
     fits: [
-      { id: 'transparency', fit: 'Resident and council portal, plain-English answers anyone can verify, unlimited users.', price: '$1,800–$30,000 / yr by population' },
-      { id: 'vendor', fit: 'Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.', price: '$18,000–$120,000 / yr by spend' },
-      { id: 'finance', fit: 'Budget, grant, and bond figures your auditor can reproduce in one click.', price: '$12,000–$75,000 / yr by population' },
+      { id: 'transparency', fit: 'Resident and council portal, plain-English answers anyone can verify, unlimited users.', price: '$1,800–$30,000 / yr by population', saves: 'Cuts public-records and audit prep time' },
+      { id: 'vendor', fit: 'Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.', price: '$18,000–$120,000 / yr by spend', saves: 'Captures most of the modeled savings: staff time and unverified vendor expenses' },
+      { id: 'finance', fit: 'Budget, grant, and bond figures your auditor can reproduce in one click.', price: '$12,000–$75,000 / yr by population', saves: 'Shortens annual audit reconciliation' },
     ],
     roi: 'Replace a six-figure open-data portal at a tenth the cost, and recover even 0.1% of a $25M spend, that is $25,000, in caught duplicate payments.',
     buy: 'Entry tiers sit under the typical $25k sole-source threshold, so you can buy without an RFP. Larger tiers through Sourcewell, OMNIA, or GSA.',
@@ -79,6 +142,7 @@ const SEGMENTS = [
     problem: 'Parents and taxpayers want to see how grant, bond, and construction dollars are spent, and a district audit runs $40,000 to $130,000.',
     startsAt: '$3,000 / yr',
     sizing: 'Sized by enrollment: under 2,500 · 2,500–10,000 · over 10,000 students',
+    savingsPlaceholder: 'Savings model for School Districts in progress. Ask us to model yours from your public budget.',
     fits: [
       { id: 'transparency', fit: 'Parent and taxpayer portal for budgets, grants, and construction spend.', price: '$3,000–$30,000 / yr by enrollment' },
       { id: 'vendor', fit: 'Category-locked p-cards for staff purchasing, plus vendor and construction spend gated on milestones.', price: '$18,000–$90,000 / yr by spend' },
@@ -92,6 +156,7 @@ const SEGMENTS = [
     problem: 'Homeowners want to see where dues and reserves go, but board turnover loses the paper trail and contractor overpayment is the top dispute.',
     startsAt: '$600 / yr',
     sizing: 'Priced to your community size. Talk to us for a quote.',
+    savingsPlaceholder: 'Savings model for HOAs & Condos in progress. Ask us to model yours from your public budget.',
     fits: [
       { id: 'transparency', fit: 'Homeowner portal for dues, reserves, and vendor spend anyone can verify.', price: 'from $600 / yr' },
       { id: 'vendor', fit: 'Every contractor payment backed by a bid and a completed milestone; catch duplicate and over-contract payments.', price: 'by community size' },
@@ -105,6 +170,7 @@ const SEGMENTS = [
     problem: 'Ratepayers fund your capital projects and reserves, and a single-purpose district rarely has the finance staff to prove every figure.',
     startsAt: '$1,800 / yr',
     sizing: 'Sized by annual budget: under $5M · $5M–$50M · over $50M',
+    savingsPlaceholder: 'Savings model for Special Districts in progress. Ask us to model yours from your public budget.',
     fits: [
       { id: 'transparency', fit: 'Ratepayer portal for rates, reserves, and capital spend.', price: '$1,800–$24,000 / yr by budget' },
       { id: 'vendor', fit: 'Capital-project and vendor spend gated on milestones; catch duplicate and over-contract payments.', price: '$18,000–$90,000 / yr by spend' },
@@ -118,6 +184,7 @@ const SEGMENTS = [
     problem: 'Bigger budgets, more funds, more vendors, and a public that expects county-level transparency across every department.',
     startsAt: '$9,000 / yr',
     sizing: 'Sized from mid county to large regional authority, by population and spend',
+    savingsPlaceholder: 'Savings model for Counties & Authorities in progress. Ask us to model yours from your public budget.',
     fits: [
       { id: 'transparency', fit: 'Countywide resident and commissioner portal, every department, unlimited users.', price: '$9,000–$30,000 / yr' },
       { id: 'vendor', fit: 'Milestone-gated payouts and category-locked spend cards across departments, with continuous duplicate scans.', price: '$48,000–$120,000+ / yr by spend' },
@@ -131,6 +198,7 @@ const SEGMENTS = [
     problem: 'Enterprise-scale spend, federal improper-payment mandates (PIIA), and multi-entity reporting that has to reconcile.',
     startsAt: 'Custom',
     sizing: 'Priced per agency and spend under management; multi-entity and API quoted per deployment',
+    savingsPlaceholder: 'Savings model for State Agencies in progress. Ask us to model yours from your public budget.',
     fits: [
       { id: 'transparency', fit: 'Statewide public portal with an API, every figure verified.', price: 'from $30,000 / yr' },
       { id: 'vendor', fit: 'Continuous monitoring across entities, category-locked spend cards, an API, and a public contract portal.', price: '$120,000+ / yr by spend' },
@@ -145,13 +213,14 @@ const SEGMENTS = [
 const PRICING = {
   kicker: 'Pricing',
   title: 'How pricing works',
-  lede: 'Two simple parts. A subscription sized to your organization, and an optional low fee only on the payments you move through us.',
+  lede: 'Most towns save more than they pay. A subscription sized to your organization, and an optional low fee only on the payments you move through us.',
   points: [
     { h: 'Subscription', p: 'An annual price sized to your population, enrollment, budget, or unit count, never per seat. Staff, board, council, and residents all get access at $0 per user.' },
     { h: 'Optional payment fee', p: 'When you move vendor payments on our rails, you pay 0.25–0.75%, versus the 2.25–2.75% most card and processor rails charge today. The savings scale with the volume you move.' },
     { h: 'One-time onboarding', p: 'A single implementation fee per deployment that covers your data setup and integrations. Quoted per deal, it reflects real setup work.' },
   ],
   notes: [
+    'Savings figures are modeled from three case studies built on public budget data for towns of 4,200, 26,000, and 460,000 residents. They are estimates, not results, and we measure your actual savings during your pilot.',
     'Every entry tier sits under the typical $25,000 government sole-source threshold, so you can buy without an RFP. Larger tiers sell through cooperative-purchasing vehicles (Sourcewell, OMNIA, GSA) so you skip the RFP entirely.',
     'We produce evidence, not a certification. The system refuses to guess rather than return a figure it cannot verify against the record, by design, for public money.',
     'Prices are list prices, confirmed in your SOW. The payment-savings depends on your payment mix (card versus ACH), so we confirm the rate in writing before quoting a dollar figure.',
@@ -159,10 +228,10 @@ const PRICING = {
 };
 
 const COVER = {
-  eyebrow: 'Pricing',
-  title: 'Simple pricing for public money',
-  lede: 'One verifiable record of every dollar. Find your organization and see what it costs. No RFP, no per-seat fees, no six-figure portal.',
-  chips: ['Unlimited users at $0 / seat', 'Evidence, not certification', 'Buy without an RFP'],
+  eyebrow: 'Savings',
+  title: 'See what your town saves',
+  lede: 'Pick your organization and size. We show the savings modeled for a town like yours, then what it costs to get them.',
+  chips: ['Modeled on real budget data', 'Unlimited users at $0 / seat', 'Buy without an RFP'],
 };
 
 // Contents / top-nav order
@@ -188,6 +257,65 @@ function renderFitCard(f) {
   return `<div class="fit">
     <div class="fit-head"><h4>${p.name}</h4><span class="fit-price">${f.price}</span></div>
     <p class="fit-line">${f.fit}</p>
+    ${f.saves ? `<p class="fit-saves">${f.saves}</p>` : ''}
+  </div>`;
+}
+
+// ---- Savings band block (section 5.3). Headline is the CORE figure; upside is a separate, labeled line. ----
+const UPSIDE_TIP = "Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.";
+
+function renderBandBlock(band) {
+  const spendAmt = band.spend.replace(/ in contracted services$/, '');
+  return `<div class="bandblock">
+    <span class="band-eyebrow">${band.label.toUpperCase()} · ${band.range}</span>
+    <div class="band-num">${band.core}</div>
+    <div class="band-sub">modeled savings</div>
+    <p class="band-rate">${band.coreRate}, on ${spendAmt} a year</p>
+    <p class="band-upside">Faster-payment upside: ${band.upside}<span class="band-info" tabindex="0" aria-label="${UPSIDE_TIP}">ⓘ<span class="band-tip" role="tooltip">${UPSIDE_TIP}</span></span></p>
+    <p class="band-caption">${band.headline}</p>
+  </div>`;
+}
+
+// ---- Modeled example card (section 5.4). Net is shown before upside, by design. ----
+function renderExampleCard(band) {
+  const e = band.example;
+  return `<div class="example">
+    <div class="ex-label">${e.label}</div>
+    <div class="ex-rows">
+      <div class="ex-row"><span>Contracted services</span><span class="ex-n">${e.spend}</span></div>
+      <div class="ex-row"><span>Core savings</span><span class="ex-n">${e.core}</span></div>
+      <div class="ex-row"><span>Civic-Chain fee</span><span class="ex-n">−${e.fee}</span></div>
+      <div class="ex-row ex-net"><span>Net, before upside</span><span class="ex-n">${e.net}</span></div>
+      <div class="ex-row ex-upside"><span>With faster-payment upside</span><span class="ex-n">${e.upside} savings</span></div>
+    </div>
+  </div>
+  <p class="ex-disclaimer">Modeled from public budget documents and municipal benchmarks. Not a customer result. Your figures depend on your contracts and payment mix.</p>`;
+}
+
+// ---- Size picker + server-rendered band panels. Pure CSS (hidden radios) so it works with JS disabled. ----
+function renderSavingsSection(s) {
+  const bands = SAVINGS_BANDS[s.savingsBands];
+  const radios = bands.map(b =>
+    `<input type="radio" name="sz-${s.savingsBands}" id="sz-${s.savingsBands}-${b.id}" class="size-radio"${b.id === 'small' ? ' checked' : ''}>`).join('');
+  const tabs = bands.map(b =>
+    `<label class="sizetab" for="sz-${s.savingsBands}-${b.id}">${b.label}</label>`).join('');
+  const panels = bands.map(b =>
+    `<div class="bandpanel" data-size="${b.id}">${renderBandBlock(b)}${renderExampleCard(b)}</div>`).join('');
+  return `<section class="savings" aria-label="Savings by size">
+    <h3 class="savings-h">${s.savingsHeadline}</h3>
+    <div class="sizepicker-wrap">
+      ${radios}
+      <div class="sizepicker" role="tablist">${tabs}</div>
+      <div class="bandwrap">${panels}</div>
+    </div>
+  </section>`;
+}
+
+// ---- Placeholder for segments without modeled data (section 6.4). ----
+function renderPlaceholder(s) {
+  return `<div class="placeholder">
+    <p class="placeholder-t">${s.savingsPlaceholder}</p>
+    <button class="placeholder-link" data-nav="contact">Ask us to model yours →</button>
   </div>`;
 }
 
@@ -195,24 +323,44 @@ function renderSegmentView(s) {
   const idx = SEGMENTS.findIndex(x => x.id === s.id);
   const next = SEGMENTS[idx + 1] || { id: 'pricing', name: 'How pricing works' };
   const prev = idx > 0 ? SEGMENTS[idx - 1] : null;
-  return `
-  <article class="view sec" data-view="${s.id}">
-    <button class="back" data-nav="home">← All organizations</button>
+  const hasBands = !!s.savingsBands;
+  const nav = `<nav class="secnav">
+      ${prev ? `<button class="secnav-btn" data-nav="${prev.id}">← ${prev.name}</button>` : '<button class="secnav-btn" data-nav="home">← All organizations</button>'}
+      <button class="secnav-btn next" data-nav="${next.id}">${next.name} →</button>
+    </nav>`;
+  const header = `<button class="back" data-nav="home">← All organizations</button>
     <header class="sec-head">
       <span class="kicker">${s.sub}</span>
       <h2>${s.name}</h2>
       <p class="lede">${s.problem}</p>
-    </header>
+    </header>`;
+  const buy = `<div class="buy"><span class="buy-k">Easy to buy</span><p>${s.buy}</p></div>`;
+
+  if (hasBands) {
+    // Savings-led layout: band block is the headline, price follows as "what you pay".
+    return `
+  <article class="view sec" data-view="${s.id}">
+    ${header}
+    ${renderSavingsSection(s)}
+    <h3 class="fits-h">What you pay</h3>
+    <div class="fits">${s.fits.map(renderFitCard).join('')}</div>
+    ${buy}
+    ${nav}
+  </article>`;
+  }
+
+  // Segments without modeled data: keep today's layout, with the placeholder where the band block would go.
+  return `
+  <article class="view sec" data-view="${s.id}">
+    ${header}
     ${s.startsAt !== 'Custom' ? `<div class="startsat"><span class="startsat-k">Starts at</span><span class="startsat-n">${s.startsAt}</span></div>` : ''}
     ${s.sizing ? `<p class="sizing">${s.sizing}</p>` : ''}
+    ${s.savingsPlaceholder ? renderPlaceholder(s) : ''}
     <h3 class="fits-h">What fits you</h3>
     <div class="fits">${s.fits.map(renderFitCard).join('')}</div>
     <blockquote class="pull">${s.roi}</blockquote>
-    <div class="buy"><span class="buy-k">Easy to buy</span><p>${s.buy}</p></div>
-    <nav class="secnav">
-      ${prev ? `<button class="secnav-btn" data-nav="${prev.id}">← ${prev.name}</button>` : '<button class="secnav-btn" data-nav="home">← All organizations</button>'}
-      <button class="secnav-btn next" data-nav="${next.id}">${next.name} →</button>
-    </nav>
+    ${buy}
+    ${nav}
   </article>`;
 }
 
@@ -310,6 +458,13 @@ const BODY = `
 </main>
 `;
 
+// Pure-CSS size-picker toggle, generated per SAVINGS_BANDS key so the picker needs no JavaScript.
+const bandToggleCSS = Object.entries(SAVINGS_BANDS).map(([key, bands]) => {
+  const panelSel = bands.map(b => `#sz-${key}-${b.id}:checked~.bandwrap .bandpanel[data-size="${b.id}"]`).join(',\n');
+  const tabSel = bands.map(b => `#sz-${key}-${b.id}:checked~.sizepicker [for="sz-${key}-${b.id}"]`).join(',\n');
+  return `${panelSel}{display:block}\n${tabSel}{background:var(--brand);color:#fff;border-color:var(--brand)}`;
+}).join('\n');
+
 const STYLE = `
 :root{
   --paper:#faf9f6; --surface:#ffffff; --surface-2:#f4f2ec;
@@ -393,6 +548,47 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 .fit-head h4{font-family:var(--serif);font-weight:400;font-size:20px;color:var(--brand-deep);margin:0}
 .fit-price{font-size:14.5px;font-weight:700;color:var(--brand);white-space:nowrap;font-variant-numeric:tabular-nums}
 .fit-line{font-size:15.5px;color:var(--ink-2);margin:0;line-height:1.55}
+.fit-saves{position:relative;font-size:14px;color:var(--brand);font-weight:600;margin:8px 0 0;padding-left:16px}
+.fit-saves::before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:2px;background:var(--gold)}
+
+/* savings section: size picker + band block + modeled example */
+.savings{margin:34px 0 10px}
+.savings-h{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--brand-deep);margin:0 0 18px;max-width:720px;line-height:1.15}
+.sizepicker-wrap{max-width:720px}
+.size-radio{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
+.sizepicker{display:flex;gap:8px;margin-bottom:18px}
+.sizetab{flex:1;text-align:center;font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:var(--rctrl);padding:10px 12px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.sizetab:hover{background:var(--brand-tint);border-color:var(--brand)}
+.bandpanel{display:none}
+
+.bandblock{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--brand);border-radius:var(--rcard);padding:26px 26px 22px;box-shadow:var(--sh-card)}
+.band-eyebrow{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:12px}
+.band-num{font-family:var(--serif);font-weight:400;font-size:clamp(30px,6vw,50px);line-height:1.04;color:var(--brand-deep);letter-spacing:-.01em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.band-sub{font-size:14px;color:var(--ink-3);font-weight:600;margin-top:4px}
+.band-rate{font-size:15.5px;color:var(--ink-2);margin:14px 0 0}
+.band-upside{position:relative;font-size:14.5px;color:var(--ink-3);margin:10px 0 0;font-weight:500}
+.band-info{display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:17px;height:17px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:11px;font-weight:700;cursor:help;vertical-align:middle;position:relative}
+.band-tip{display:none;position:absolute;left:50%;bottom:150%;transform:translateX(-50%);width:260px;max-width:72vw;background:var(--brand-deep);color:#fff;font-size:13px;font-weight:400;line-height:1.5;text-align:left;padding:12px 14px;border-radius:10px;box-shadow:var(--sh-hot);z-index:5}
+.band-info:hover .band-tip,.band-info:focus .band-tip{display:block}
+.band-caption{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--brand);margin:18px 0 0;line-height:1.35}
+
+.example{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rcard);padding:22px 24px;margin-top:16px;max-width:520px}
+.ex-label{font-family:var(--serif);font-size:18px;color:var(--brand-deep);margin-bottom:12px}
+.ex-rows{font-variant-numeric:tabular-nums}
+.ex-row{display:flex;justify-content:space-between;gap:16px;padding:7px 0;font-size:15px;color:var(--ink-2)}
+.ex-n{font-weight:600;color:var(--ink);white-space:nowrap}
+.ex-net{border-top:1px solid var(--border);margin-top:6px;padding-top:12px;color:var(--ink)}
+.ex-net span{font-weight:700}
+.ex-upside{color:var(--ink-3)}
+.ex-upside .ex-n{color:var(--brand);font-weight:700}
+.ex-disclaimer{font-size:13px;color:var(--ink-3);line-height:1.5;margin:12px 0 0;max-width:520px}
+
+.placeholder{background:var(--surface-2);border:1px dashed var(--border);border-radius:var(--rcard);padding:22px 24px;margin:24px 0 6px;max-width:720px}
+.placeholder-t{font-size:15.5px;color:var(--ink-2);margin:0 0 12px;line-height:1.55}
+.placeholder-link{border:1px solid var(--brand);background:none;color:var(--brand-deep);font-family:var(--sans);font-size:14.5px;font-weight:700;border-radius:var(--rctrl);padding:9px 16px;cursor:pointer;transition:background .15s}
+.placeholder-link:hover{background:var(--brand-tint)}
+
+${bandToggleCSS}
 
 .pull{margin:30px 0;padding:4px 0 4px 26px;border-left:3px solid var(--gold);font-family:var(--serif);font-size:24px;line-height:1.4;color:var(--brand-deep);max-width:820px;font-style:italic}
 .buy{display:grid;grid-template-columns:120px 1fr;gap:16px;max-width:820px;padding:18px 0;border-top:1px solid var(--border)}
@@ -427,6 +623,15 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
   .topnav{display:none}
   .buy{grid-template-columns:1fr;gap:6px}
 }
+@media(max-width:430px){
+  .savings-h{font-size:22px}
+  .sizepicker{gap:6px}
+  .sizetab{font-size:12.5px;padding:9px 6px}
+  .bandblock{padding:22px 18px 20px}
+  .band-num{font-size:26px}
+  .example{padding:20px 18px}
+  .ex-row{font-size:14.5px}
+}
 `;
 
 const SCRIPT = `
@@ -460,6 +665,16 @@ ${fonts.style}
 ${bodyHtml}
 <script>${inlineScript}</script>
 </body></html>`;
+}
+
+// Public-safe guard (spec section 6.2 / acceptance 5): these terms must never reach the built HTML.
+// We scan the rendered BODY with data-URIs stripped, so inlined font/brand base64 can't trip a false positive.
+const FORBIDDEN = ['PayPort', 'interchange', 'float', 'South Portland', 'Miami'];
+const scanText = BODY.replace(/"data:[^"]*"/g, '""').toLowerCase();
+const forbiddenHits = FORBIDDEN.filter(w => scanText.includes(w.toLowerCase()));
+if (forbiddenHits.length) {
+  console.error('BUILD FAILED — forbidden term(s) in output: ' + forbiddenHits.join(', '));
+  process.exit(1);
 }
 
 if (!doEncrypt) {

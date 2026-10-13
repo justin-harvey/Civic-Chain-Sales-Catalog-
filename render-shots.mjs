@@ -21,7 +21,11 @@ async function run(label, viewport) {
   await page.click('.view.active .enter');
   await shot('2-segments', true);
   await page.click('.view.active .toc[data-nav="municipal"]');
-  await shot('3-municipal', true);
+  await shot('3-municipal-small', true);
+  await page.click('.view.active label[for="sz-municipal-mid"]');
+  await shot('3-municipal-mid', true);
+  await page.click('.view.active label[for="sz-municipal-large"]');
+  await shot('3-municipal-large', true);
   await page.click('.view.active .back');
   await page.click('.view.active .toc[data-nav="hoa"]');
   await shot('4-hoa', true);
