@@ -175,7 +175,7 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 .toc:hover{transform:translateY(-3px);box-shadow:var(--sh-hot);border-color:var(--brand)}
 .toc-t{font-family:var(--serif);font-size:24px;color:var(--brand-deep);line-height:1.1}
 .toc-s{font-size:14px;color:var(--ink-3)}
-.toc-price{margin-top:8px;font-size:14px;font-weight:700;color:var(--brand)}
+.toc-cue{margin-top:8px;font-size:13.5px;font-weight:700;color:var(--brand)}
 .toc-go{position:absolute;top:24px;right:22px;color:var(--brand);font-size:20px;opacity:0;transition:opacity .15s,transform .15s}
 .toc:hover .toc-go{opacity:1;transform:translateX(3px)}
 
@@ -311,37 +311,37 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     <header class="sec-head center">
       <span class="kicker">Find your organization</span>
       <h2>Which are you?</h2>
-      <p class="lede">Pick your organization type and see what it costs. One engine, priced to how you already buy.</p>
+      <p class="lede">Pick your organization type and see what it saves. One engine, priced to how you already buy.</p>
     </header>
     <div class="toc-grid"><button class="toc" data-nav="municipal">
     <span class="toc-t">Municipalities</span>
     <span class="toc-s">Towns & cities</span>
-    <span class="toc-price">from $1,800 / yr</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button><button class="toc" data-nav="schools">
     <span class="toc-t">School Districts</span>
     <span class="toc-s">K-12 & districts</span>
-    <span class="toc-price">from $3,000 / yr</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button><button class="toc" data-nav="hoa">
     <span class="toc-t">HOAs & Condos</span>
     <span class="toc-s">Community associations</span>
-    <span class="toc-price">from $600 / yr</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button><button class="toc" data-nav="special">
     <span class="toc-t">Special Districts</span>
     <span class="toc-s">Water, fire, sewer, library, transit</span>
-    <span class="toc-price">from $1,800 / yr</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button><button class="toc" data-nav="county">
     <span class="toc-t">Counties & Authorities</span>
     <span class="toc-s">Counties & regional authorities</span>
-    <span class="toc-price">from $9,000 / yr</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button><button class="toc" data-nav="state">
     <span class="toc-t">State Agencies</span>
     <span class="toc-s">Departments & statewide</span>
-    <span class="toc-price">Custom</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button></div>
     <div class="home-foot">
@@ -361,7 +361,7 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     <section class="savings" aria-label="Savings by size">
     <h3 class="savings-h">Towns your size typically save more than they pay.</h3>
     <div class="sizepicker-wrap">
-      <input type="radio" name="sz-municipal" id="sz-municipal-small" class="size-radio" checked><input type="radio" name="sz-municipal" id="sz-municipal-mid" class="size-radio"><input type="radio" name="sz-municipal" id="sz-municipal-large" class="size-radio">
+      <input type="radio" name="sz-municipal" id="sz-municipal-small" class="size-radio"><input type="radio" name="sz-municipal" id="sz-municipal-mid" class="size-radio" checked><input type="radio" name="sz-municipal" id="sz-municipal-large" class="size-radio">
       <div class="sizepicker" role="tablist"><label class="sizetab" for="sz-municipal-small">Small town</label><label class="sizetab" for="sz-municipal-mid">Mid-size city</label><label class="sizetab" for="sz-municipal-large">Large city</label></div>
       <div class="bandwrap"><div class="bandpanel" data-size="small"><div class="bandblock">
     <span class="band-eyebrow">SMALL TOWN · Under 10,000 residents</span>
@@ -369,7 +369,7 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     <div class="band-sub">modeled savings</div>
     <p class="band-rate">~6% of contracted spend, on $150K–$750K a year</p>
     <p class="band-upside">Faster-payment upside: up to $69,000 / yr<span class="band-info" tabindex="0" aria-label="Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.">ⓘ<span class="band-tip" role="tooltip">Vendors who are paid in one day instead of thirty often bid lower. We show this separately because it depends on your vendors and your current payment terms, and we'll measure it in your pilot.</span></span></p>
-    <p class="band-caption">Small towns save the largest share of what they spend.</p>
+    <p class="band-caption">For a small town the real win is a payout that can't be redirected to an impersonated vendor, with the public record built in.</p>
   </div><div class="example">
     <div class="ex-label">Modeled: a New England town of 4,200</div>
     <div class="ex-rows">
@@ -423,7 +423,7 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
     <p class="fit-line">Resident and council portal, plain-English answers anyone can verify, unlimited users.</p>
     <p class="fit-saves">Cuts public-records and audit prep time</p>
   </div><div class="fit">
-    <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$18,000–$120,000 / yr by spend</span></div>
+    <div class="fit-head"><h4>Vendor Management + Spend Cards</h4><span class="fit-price">$8,400–$120,000 / yr by spend</span></div>
     <p class="fit-line">Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.</p>
     <p class="fit-saves">Captures most of the modeled savings: staff time and unverified vendor expenses</p>
   </div><div class="fit">

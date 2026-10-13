@@ -21,6 +21,7 @@ async function run(label, viewport) {
   await page.click('.view.active .enter');
   await shot('2-segments', true);
   await page.click('.view.active .toc[data-nav="municipal"]');
+  await page.click('.view.active label[for="sz-municipal-small"]');
   await shot('3-municipal-small', true);
   await page.click('.view.active label[for="sz-municipal-mid"]');
   await shot('3-municipal-mid', true);

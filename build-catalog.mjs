@@ -78,7 +78,7 @@ const SAVINGS_BANDS = {
         fee: '$8,400',
         net: '$15,000',
       },
-      headline: 'Small towns save the largest share of what they spend.',
+      headline: 'For a small town the real win is a payout that can\'t be redirected to an impersonated vendor, with the public record built in.',
     },
     {
       id: 'mid', label: 'Mid-size city', range: '10,000–100,000 residents',
@@ -131,7 +131,7 @@ const SEGMENTS = [
     savingsPlaceholder: null,
     fits: [
       { id: 'transparency', fit: 'Resident and council portal, plain-English answers anyone can verify, unlimited users.', price: '$1,800–$30,000 / yr by population', saves: 'Cuts public-records and audit prep time' },
-      { id: 'vendor', fit: 'Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.', price: '$18,000–$120,000 / yr by spend', saves: 'Captures most of the modeled savings: staff time and unverified vendor expenses' },
+      { id: 'vendor', fit: 'Gate every vendor payout on a confirmed milestone; catch duplicate and over-contract payments.', price: '$8,400–$120,000 / yr by spend', saves: 'Captures most of the modeled savings: staff time and unverified vendor expenses' },
       { id: 'finance', fit: 'Budget, grant, and bond figures your auditor can reproduce in one click.', price: '$12,000–$75,000 / yr by population', saves: 'Shortens annual audit reconciliation' },
     ],
     roi: 'Replace a six-figure open-data portal at a tenth the cost, and recover even 0.1% of a $25M spend, that is $25,000, in caught duplicate payments.',
@@ -243,11 +243,12 @@ const NAV = [
 
 // ---------- renderers ----------
 function renderSegmentCard(s) {
-  const price = s.startsAt === 'Custom' ? 'Custom' : `from ${s.startsAt}`;
+  // Price intentionally omitted on the grid (savings-led reframe keeps price on the detail page).
+  // The cue is a consolidation hook, not a figure: no per-segment savings number is modeled except municipal.
   return `<button class="toc" data-nav="${s.id}">
     <span class="toc-t">${s.name}</span>
     <span class="toc-s">${s.sub}</span>
-    <span class="toc-price">${price}</span>
+    <span class="toc-cue">See what it replaces</span>
     <span class="toc-go">→</span>
   </button>`;
 }
@@ -296,7 +297,7 @@ function renderExampleCard(band) {
 function renderSavingsSection(s) {
   const bands = SAVINGS_BANDS[s.savingsBands];
   const radios = bands.map(b =>
-    `<input type="radio" name="sz-${s.savingsBands}" id="sz-${s.savingsBands}-${b.id}" class="size-radio"${b.id === 'small' ? ' checked' : ''}>`).join('');
+    `<input type="radio" name="sz-${s.savingsBands}" id="sz-${s.savingsBands}-${b.id}" class="size-radio"${b.id === 'mid' ? ' checked' : ''}>`).join('');
   const tabs = bands.map(b =>
     `<label class="sizetab" for="sz-${s.savingsBands}-${b.id}">${b.label}</label>`).join('');
   const panels = bands.map(b =>
@@ -442,7 +443,7 @@ const BODY = `
     <header class="sec-head center">
       <span class="kicker">Find your organization</span>
       <h2>Which are you?</h2>
-      <p class="lede">Pick your organization type and see what it costs. One engine, priced to how you already buy.</p>
+      <p class="lede">Pick your organization type and see what it saves. One engine, priced to how you already buy.</p>
     </header>
     <div class="toc-grid">${segmentCards}</div>
     <div class="home-foot">
@@ -526,7 +527,7 @@ body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:40vh;z-ind
 .toc:hover{transform:translateY(-3px);box-shadow:var(--sh-hot);border-color:var(--brand)}
 .toc-t{font-family:var(--serif);font-size:24px;color:var(--brand-deep);line-height:1.1}
 .toc-s{font-size:14px;color:var(--ink-3)}
-.toc-price{margin-top:8px;font-size:14px;font-weight:700;color:var(--brand)}
+.toc-cue{margin-top:8px;font-size:13.5px;font-weight:700;color:var(--brand)}
 .toc-go{position:absolute;top:24px;right:22px;color:var(--brand);font-size:20px;opacity:0;transition:opacity .15s,transform .15s}
 .toc:hover .toc-go{opacity:1;transform:translateX(3px)}
 
